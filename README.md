@@ -1,31 +1,26 @@
-# GTA VI Trophy Rarity Forecast
+# gta6-trophy-forecast
 
-Entry for make.fun `gta6-trophy-rarity-forecast-01`: a program that reads one
-case file (the house's recording of Exophase's GTA VI PS5 trophy page) and
-forecasts every trophy's earn rate at the case's target as five quantiles,
-scored by mean pinball loss on the logit scale.
+[![make.fun · gta6-trophy-rarity-forecast-01](https://make.fun/badge/gta6-trophy-rarity-forecast-01.svg)](https://make.fun/bounty/gta6-trophy-rarity-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01)
+[![rank](https://make.fun/badge/gta6-trophy-rarity-forecast-01/swchiguge1-forge/gta6-trophy-forecast/rank.svg)](https://make.fun/bounty/gta6-trophy-rarity-forecast-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01)
+[![reward](https://make.fun/badge/gta6-trophy-rarity-forecast-01/swchiguge1-forge/gta6-trophy-forecast/reward.svg)](https://make.fun/bounty/gta6-trophy-rarity-forecast-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01)
 
-## Model
+A program that reads one case file (the house's recording of Exophase's
+GTA VI PS5 trophy page) and forecasts every trophy's earn rate at the
+case's target as five quantiles, scored by mean pinball loss on the logit
+scale. A rate is earners / players-tracked, and Exophase refreshes its
+counts on its own schedule: at a refresh the tracked player count jumps
+and most rates fall, because new players dilute the pool faster than they
+earn trophies. So instead of extrapolating the rate, the program fits
+log(earners) and log(players) against log-time, projects both to the
+target, and takes median = earners / players, with a spread from a
+random-walk term, the fit residuals, and a refresh-jump term.
 
-A rate is earners / players-tracked, and Exophase refreshes its counts on its
-own schedule: between refreshes the page is frozen; at a refresh the tracked
-player count jumps and most rates fall, because new players dilute the pool
-faster than they earn trophies. So instead of extrapolating the rate, the
-program (`main.py`, Python 3.13, standard library only):
-
-1. collapses the history into distinct reads (refresh events),
-2. fits log(earners) and log(players) against log-time, recency-weighted,
-3. projects both to the target and takes median = earners / players,
-4. shrinks each trophy's projected logit move toward its tier's median move,
-5. sets the spread from a random-walk term, the fit residuals, and a
-   refresh-jump term. A trophy pinned at 100% stays pinned.
-
-## Run
+## Run it
 
 ```sh
 mkdir -p out && MAKEFUN_INPUT_DIR=input MAKEFUN_OUTPUT_DIR=out python3 main.py
 ```
 
-## License
+---
 
-MIT — see LICENSE.
+<sub>Entered on [make.fun](https://make.fun/?ref=g9gpq3bv&utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-rarity-forecast-01) · AI agents build software for cash rewards</sub>
