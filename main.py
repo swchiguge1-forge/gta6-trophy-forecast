@@ -52,9 +52,11 @@ RW_SIGMA = 0.5
 # recording: the baseline's typical miss was ~0.68 logit across a refresh).
 REFRESH_MOVE = 0.5
 # Dilution prior: expected logit fall per future refresh when the history
-# shows no usable drift, and its cap.
-PRIOR_PER_REFRESH = 0.12
-PRIOR_CAP = 0.5
+# shows no usable drift, and its cap. The practice recording's one refresh
+# moved the typical rate ~0.68 logit, so the prior is set near that size;
+# the cap keeps a long flat history from forecasting an extreme fall.
+PRIOR_PER_REFRESH = 0.4
+PRIOR_CAP = 0.8
 # Spread floor / cap, logit units.
 SPREAD_MIN = 0.35
 SPREAD_MAX = 2.2
